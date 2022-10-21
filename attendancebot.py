@@ -83,7 +83,7 @@ for student in everyone_else:
     student.append(format_attrate)
     student.append(remaining_number_sessions_non_seniors)
 # calculate the minimum needed sessions to pass with more than 50% attendance
-    if int(float(format_attrate)) > 50:
+    if int(float(format_attrate)) >= 50:
         passfail="passing"
         student.append(passfail)
     else:
@@ -100,16 +100,10 @@ for student in everyone_else:
     del student[2:]
     #compose custom email message
 
-    entry = "Dear " + student[0].strip() + ",\n\nHello varsity walker. I'm coach Reitz' python3 attendancebot!\n\nYou are currently " + passfail + " Spring Fitness. \n\nYour current attendance rate is:" + str(attrate) + "%. (You have attended " + str(attnum) + " sessions, and have been absent for " + str(skipnum) + " sessions.)\n\nYou still need to attend at least " + str(neednum_everyone_else) + " practices of the remaining " + str(remaining_number_sessions_non_seniors) + " in the school year in order to reach the critical threshold of the majority of practices (i.e. an attendance rate of more than 50%) and pass Spring Fitness. \n\nYour remaining practice dates are: " + str(remaining_dates_everyone_else_string_stripped) + ". \n\nSincerely, \n Mr Coach's Python3 Attendance-bot \n\n"
+    entry = "Dear " + student[0].strip() + ",\n\nHello varsity walker. I'm coach Reitz' python3 attendancebot!\n\nYou are currently " + passfail + " Spring Fitness. \n\nYour current attendance rate is:" + str(attrate) + "%. (You have attended " + str(attnum) + " sessions, and have been absent for " + str(skipnum) + " sessions.)\n\nYou still need to attend at least " + str(neednum_everyone_else) + " practices of the remaining " + str(remaining_number_sessions_non_seniors) + " in the school year in order to reach the critical threshold of the majority of practices (i.e. an attendance rate of at least 50%) and pass Spring Fitness. \n\nYour remaining practice dates are: " + str(remaining_dates_everyone_else_string_stripped) + ". \n\nSincerely, \n Mr Coach's Python3 Attendance-bot \n\n"
     email_report = str(entry)
     #attach the email report to string
     student.append(email_report)
-    # student += student
-
-
-#create custom email message to students
-    # write the student data to txt report file
-
 
 # Step 2: process attendance data for seniors and insert attnum, skipnum, attrate,  
 # remaining_number_sessions_non_seniors, and neednum_everyone_else into list
@@ -131,7 +125,7 @@ for student in seniors:
     student.append(format_attrate)
     student.append(remaining_number_sessions_seniors)
     # calculate the minimum needed sessions to pass with more than 50% attendance
-    if int(float(format_attrate)) > 50:
+    if int(float(format_attrate)) >= 50:
         passfail = "passing"
         student.append(passfail)
     else:
@@ -146,7 +140,7 @@ for student in seniors:
         else:
             neednum_seniors = str(neednum_seniors - 1)
 
-    if int(float(format_attrate)) > 50:
+    if int(float(format_attrate)) >= 50:
         passfail="passing"
     else: 
         passfail="not passing"
@@ -165,7 +159,7 @@ for student in seniors:
     # delete the unneeded attendance records
     del student[2:]
     #compose custom email message
-    entry = "Dear " + student[0].strip() + ",\n\nHello varsity walker. I'm coach Reitz' python3 attendancebot!\n\nYou are currently " + passfail + " Spring Fitness. \n\nYour current attendance rate is:" + str(attrate) + "%. (You have attended " + str(attnum) + " sessions, and have been absent for " + str(skipnum) + " sessions.)\n\nYou still need to attend at least " + str(neednum_seniors) + " practices of the remaining " + str(remaining_number_sessions_seniors) + " in the school year in order to reach the critical threshold of the majority of practices (i.e. an attendance rate of more than 50%) and pass Spring Fitness. \n\nYour remaining practice dates are: " + str(remaining_dates_sessions_seniors_string_stripped) + ". \n\nSincerely, \n Mr Coach's Python3 Attendance-bot \n\n"
+    entry = "Dear " + student[0].strip() + ",\n\nHello varsity walker. I'm coach Reitz' python3 attendancebot!\n\nYou are currently " + passfail + " Spring Fitness. \n\nYour current attendance rate is:" + str(attrate) + "%. (You have attended " + str(attnum) + " sessions, and have been absent for " + str(skipnum) + " sessions.)\n\nYou still need to attend at least " + str(neednum_seniors) + " practices of the remaining " + str(remaining_number_sessions_seniors) + " in the school year in order to reach the critical threshold of the majority of practices (i.e. an attendance rate of at least 50%) and pass Spring Fitness. \n\nYour remaining practice dates are: " + str(remaining_dates_sessions_seniors_string_stripped) + ". \n\nSincerely, \n Mr Coach's Python3 Attendance-bot \n\n"
     email_report = str(entry)
     student.append(email_report)
 
@@ -199,9 +193,9 @@ for student in everyone_else:
         message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
         context = ssl.create_default_context()
         print("Starting to send to non-seniors")
-        # with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-        #     server.login(sender, password)
-        #     server.sendmail(sender, receive, message)
+        with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+             server.login(sender, password)
+             server.sendmail(sender, receive, message)
         print("sent emails to non-seniors!")
         break
 #create a report.csv file of the new lists
@@ -227,9 +221,9 @@ for student in seniors:
         message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
         context = ssl.create_default_context()
         print("Starting to send to seniors")
-        # with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-        #     server.login(sender, password)
-        #     server.sendmail(sender, receive, message)
+        with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+             server.login(sender, password)
+             server.sendmail(sender, receive, message)
         print("sent emails to seniors!")
         break
 
