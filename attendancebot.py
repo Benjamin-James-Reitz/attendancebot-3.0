@@ -91,7 +91,7 @@ for student in everyone_else:
         student.append(passfail)
 
     neednum_everyone_else = remaining_number_sessions_non_seniors
-    while (attnum+neednum_everyone_else)/(attnum+skipnum+remaining_number_sessions_non_seniors) >= 0.5:
+    while (attnum+neednum_everyone_else)/(attnum+skipnum+remaining_number_sessions_non_seniors) > 0.5:
         neednum_everyone_else = (int(neednum_everyone_else) - 1)
     else:
         student.append(neednum_everyone_else + 1)
@@ -134,7 +134,7 @@ for student in seniors:
 
     neednum_seniors = remaining_number_sessions_seniors
     while neednum_seniors >= 0:
-        if (attnum + neednum_seniors) / (attnum + skipnum + remaining_number_sessions_seniors) >= 0.5:
+        if (attnum + neednum_seniors) / (attnum + skipnum + remaining_number_sessions_seniors) > 0.5:
             student.append(neednum_seniors)
             break
         else:
@@ -151,7 +151,7 @@ for student in seniors:
     # calculate the minimum needed sessions to pass with more than 50% attendance
     neednum_seniors = remaining_number_sessions_seniors
 
-    while (attnum+neednum_seniors)/(attnum+skipnum+remaining_number_sessions_seniors) >= 0.5:
+    while (attnum+neednum_seniors)/(attnum+skipnum+remaining_number_sessions_seniors) > 0.5:
         neednum_seniors = int(neednum_seniors - 1)
     else:
         student.append(neednum_seniors + 1)
